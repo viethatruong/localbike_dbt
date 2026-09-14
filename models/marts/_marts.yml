@@ -18,14 +18,16 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_brands')
-              field: brand_id
+              arguments:
+                to: ref('stg_brands')
+                field: brand_id
       - name: category_id
         tests:
           - not_null
           - relationships:
-              to: ref('stg_categories')
-              field: category_id
+              arguments:
+                to: ref('stg_categories')
+                field: category_id
       - name: product_name
         tests: [not_null]
 
@@ -46,8 +48,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('dim_stores')
-              field: store_id
+              arguments:
+                to: ref('dim_stores')
+                field: store_id
 
   - name: fct_orders
     description: "Table de faits au grain commande."
@@ -63,20 +66,23 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('dim_customers')
-              field: customer_id
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
       - name: store_id
         tests:
           - not_null
           - relationships:
-              to: ref('dim_stores')
-              field: store_id
+              arguments:
+                to: ref('dim_stores')
+                field: store_id
       - name: staff_id
         tests:
           - not_null
           - relationships:
-              to: ref('dim_staffs')
-              field: staff_id
+              arguments:
+                to: ref('dim_staffs')
+                field: staff_id
       - name: order_total
         tests: [not_null]
 
@@ -89,14 +95,16 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('fct_orders')
-              field: order_id
+              arguments:
+                to: ref('fct_orders')
+                field: order_id
       - name: product_id
         tests:
           - not_null
           - relationships:
-              to: ref('dim_products')
-              field: product_id
+              arguments:
+                to: ref('dim_products')
+                field: product_id
       - name: quantity
         tests: [not_null]
       - name: net_amount
