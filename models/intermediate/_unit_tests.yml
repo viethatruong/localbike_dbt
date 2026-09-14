@@ -1,0 +1,31 @@
+version: 2
+
+unit_tests:
+  - name: test_int_order_items_calculated_net_amount
+    description: "Vérifie le calcul du montant net après remise."
+    model: int_order_items_calculated
+    given:
+      - input: ref('stg_order_items')
+        rows:
+          - {order_item_id: "1-1", order_id: 1, item_id: 1, product_id: 10, quantity: 2, list_price: 100.00, discount: 0.10}
+      - input: ref('stg_products')
+        rows:
+          - {product_id: 10, product_name: "Test Bike"}
+    expect:
+      rows:
+        - {order_item_id: "1-1", order_id: 1, item_id: 1, product_id: 10, product_name: "Test Bike", quantity: 2, list_price: 100.00, discount: 0.10, gross_amount: 200.00, discount_amount: 20.00, net_amount: 180.00}
+
+  - name: test_int_orders_enriched_order_total
+    description: "Vérifie l'agrégation du total d'une commande."
+    model: int_orders_enriched
+    given:
+      - input: ref('stg_orders')
+        rows:
+          - {order_id: 1, customer_id: 1, order_status: 4, order_status_name: "Completed", order_date: "2026-01-01", required_date: "2026-01-03", shipped_date: "2026-01-02", store_id: 1, staff_id: 2}
+      - input: ref('int_order_items_calculated')
+        rows:
+          - {order_id: 1, net_amount: 100.00, quantity: 1}
+          - {order_id: 1, net_amount: 180.00, quantity: 2}
+    expect:
+      rows:
+        - {order_id: 1, customer_id: 1, order_status: 4, order_status_name: "Completed", order_date: "2026-01-01", required_date: "2026-01-03", shipped_date: "2026-01-02", store_id: 1, staff_id: 2, order_total: 280.00, total_items: 3, line_count: 2}

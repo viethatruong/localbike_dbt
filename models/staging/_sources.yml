@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: local_bike
+    database: "{{ target.project }}"
+    schema: local_bike
+    description: "Tables brutes chargées dans BigQuery par Airbyte."
+
+    tables:
+      - name: brands
+      - name: categories
+      - name: customers
+      - name: order_items
+      - name: orders
+      - name: products
+      - name: staffs
+      - name: stocks
+      - name: stores

@@ -1,0 +1,103 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Dimension clients."
+    columns:
+      - name: customer_id
+        tests: [not_null, unique]
+      - name: customer_name
+        tests: [not_null]
+
+  - name: dim_products
+    description: "Dimension produits enrichie avec marque et catégorie."
+    columns:
+      - name: product_id
+        tests: [not_null, unique]
+      - name: brand_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_brands')
+              field: brand_id
+      - name: category_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_categories')
+              field: category_id
+      - name: product_name
+        tests: [not_null]
+
+  - name: dim_stores
+    description: "Dimension magasins."
+    columns:
+      - name: store_id
+        tests: [not_null, unique]
+      - name: store_name
+        tests: [not_null]
+
+  - name: dim_staffs
+    description: "Dimension employés."
+    columns:
+      - name: staff_id
+        tests: [not_null, unique]
+      - name: store_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_stores')
+              field: store_id
+
+  - name: fct_orders
+    description: "Table de faits au grain commande."
+    config:
+      partition_by:
+        field: order_date
+        data_type: date
+        granularity: day
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+      - name: store_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_stores')
+              field: store_id
+      - name: staff_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_staffs')
+              field: staff_id
+      - name: order_total
+        tests: [not_null]
+
+  - name: fct_order_items
+    description: "Table de faits au grain ligne de commande."
+    columns:
+      - name: order_item_id
+        tests: [not_null, unique]
+      - name: order_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('fct_orders')
+              field: order_id
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_products')
+              field: product_id
+      - name: quantity
+        tests: [not_null]
+      - name: net_amount
+        tests: [not_null]
