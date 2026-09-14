@@ -1,8 +1,8 @@
-name: 'local_bike_dbt'
+name: 'localbike_dbt'
 version: '1.0.0'
 config-version: 2
 
-profile: 'local_bike_dbt'
+profile: 'default'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -12,10 +12,13 @@ macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
 models:
-  local_bike_dbt:
+  localbike_dbt:
+    
     staging:
       +materialized: view
+    
     intermediate:
       +materialized: view
+    
     marts:
       +materialized: table
