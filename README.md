@@ -177,7 +177,8 @@ Ce dashboard présente une vue globale de l'activité commerciale : revenu total
 
 ![Dashboard Remises](dashboard/dashboard_remise.png)
 
-Ce dashboard détaille le CA net, le CA brut, le montant des remises et le taux de remise global, avec une analyse du taux de remise et du CA par marque.
+Ce dashboard détaille le CA net, le CA brut, le montant des remises et le taux de remise global, avec une analyse du taux de remise et du CA par marque
+
 ---
 
 ## 🛠️ Stack technique
