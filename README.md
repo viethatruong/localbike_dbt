@@ -166,6 +166,17 @@ dbt docs serve
 
 Les tables `marts` (`dim_*`, `fct_*`) sont connectées à **Power BI** pour construire les dashboards de suivi des ventes, du revenu et des stocks à destination de l'équipe Opérations.
 
+### Vue d'ensemble des ventes
+
+![Dashboard Ventes](dashboard/dashboard_remise.png")
+
+Ce dashboard présente une vue globale de l'activité commerciale : revenu total, panier moyen, produits vendus, nombre de commandes et de clients, ainsi que l'évolution des ventes par mois, par magasin, par catégorie et le top 5 des produits par chiffre d'affaires.
+
+### Analyse des remises et du chiffre d'affaires
+
+![Dashboard Remises]("dashboard/dashboard_remise.png")
+
+Ce dashboard détaille le CA net, le CA brut, le montant des remises et le taux de remise global, avec une analyse du taux de remise et du CA par marque.
 ---
 
 ## 🛠️ Stack technique
